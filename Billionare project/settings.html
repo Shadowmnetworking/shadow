@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #6cc506; /* Default light theme background */
+            color: #333; /* Default text color for light theme */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+        header {
+            background-color: #007BFF;
+            color: blue;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* Position relative for dropdown */
+        }
+        .menu-button {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        .menu-button div {
+            height: 4px;
+            width: 100%;
+            background-color: #2a04d1; /* Default color */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        .dropdown {
+            display: none; /* Hidden by default */
+            height: 900px;
+            width:  850px;
+            justify-content: space-evenly;
+            position: absolute; /* Positioning for dropdown */
+            background-color: rgb(228, 228, 248); /* Dropdown background */
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+            z-index: 1; /* Ensure dropdown is above other elements */
+        }
+        .dropdown button {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-left: 1cm;
+            display:ruby-base-container;
+            color:#2a04d1;
+            background-color: #32e007;
+            height: 30px;
+            width: 75%;
+            cursor: pointer; /* Pointer cursor */
+        }
+        .dropdown button:hover {
+            background-color: #1794fa; /* Light gray on hover */
+        }
+        /* Dark theme styles */
+        body.dark-theme {
+            background-color: #333; /* Dark background */
+            color: #06f038; /* Light text color */
+        }
+
+        body.dark-theme header {
+            background-color: #0056b3; /* Darker header for dark theme */
+        }
+
+        body.dark-theme .dropdown {
+            background-color: #444; /* Darker dropdown background for dark theme */
+        }
+
+        body.dark-theme .dropdown button {
+            color: #59f31d; /* White text for buttons in dark theme */
+        }
+
+        body.dark-theme .dropdown button:hover {
+            background-color: #555; /* Darker gray on hover in dark theme */
+        }
+
+        /* Color changes for the menu button on hover and active states */
+        .menu-button:hover div:nth-child(1) { background-color: #33c3ff; } /* Top line hover color */
+        .menu-button:hover div:nth-child(2) { background-color: #33c3ff; } /* Middle line hover color */
+        .menu-button:hover div:nth-child(3) { background-color: #33c3ff; } /* Bottom line hover color */
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Settings</h1>
+        <div class="menu-button" id="menu-toggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <main>
+        <h2>Account Settings</h2>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown" id="dropdown-menu">
+            <!-- Theme Toggle Button -->
+            <button onclick="window.location.href='start.html'">Home Button</button>
+            <h4>Select your desired them</h4>
+            <button id="theme-toggle">Toggle Light/Dark Theme</button>
+
+            <!-- Visible Profile Management Buttons -->
+            <input type="file" id="photoUploader" accept="image/*" onchange="setPersonalPhoto(event)">
+
+            <button onclick="window.location.href='edit-profile.html'">Manage Profile </button>
+
+            <!-- Change Password -->
+            <form id="password-form">
+                <h3>Change Password</h3>
+                <label for="current-password">Current Password:</label>
+                <input type="password" id="current-password" name="current-password" required>
+
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" name="new-password" required>
+            <button type="submit">Change Password</button>
+            </form>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Property Management App. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle Dropdown Menu
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+
+            // Toggle display of the dropdown menu
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+                this.classList.remove('active'); // Remove active class if needed
+                // Reset colors of lines when menu is closed
+                const lines = this.querySelectorAll('div');
+                lines.forEach(line => line.style.backgroundColor = '#fff'); // Reset to default color
+            } else {
+                dropdownMenu.style.display = 'block';
+                this.classList.add('active'); // Add active class if needed
+                // Change colors of lines when menu is open
+                const lines = this.querySelectorAll('div');
+                lines[0].style.backgroundColor = '#ff5733'; // Change top line color
+                lines[1].style.backgroundColor = '#33c3ff'; // Change middle line color
+                lines[2].style.backgroundColor = '#75ff33'; // Change bottom line color
+            }
+        });
+
+        // Toggle Theme Function
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+
+            // Change button text based on current theme
+            this.textContent = document.body.classList.contains('dark-theme') ? 'Switch to Light Theme' : 'Switch to Dark Theme';
+        });
+
+        // Set Personal Photo from File Input
+        function setPersonalPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.body.style.backgroundImage = url($,{e,target,result});
+                    document.body.style.backgroundSize = 'cover'; // Cover the entire page
+                    document.body.style.backgroundPosition = 'center'; // Center the image
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Toggle Profile Form
+        document.getElementById('manage-profile-btn').addEventListener('click', function() {
+            const profileForm = document.getElementById('profile-form');
+            const passwordForm = document.getElementById('password-form');
+
+            // Toggle visibility
+            profileForm.classList.toggle('active');
+
+            // Hide password form if it's visible
+            if (passwordForm.classList.contains('active')) {
+                passwordForm.classList.remove('active')
+            }
+
+            // Reset any input fields in the profile form
+            if (profileForm.classList.contains('active')) {
+                profileForm.reset();
+               passwordForm.reset(); // Also reset password fields
+            }
+        });
+
+        // Toggle Password Form
+        document.getElementById('manage-password-btn').addEventListener('click', function() {
+            const passwordForm = document.getElementById('password-form');
+            const profileForm = document.getElementById('profile-form');
+
+            // Toggle visibility
+            passwordForm.classList.toggle('active');
+
+            // Hide profile form if it's visible
+            if (profileForm.classList.contains('active')) {
+                profileForm.classList.remove('active');
+            }
+
+            // Reset any input fields in the password form
+            if (passwordForm.classList.contains('active')) {
+                passwordForm.reset();
+                profileForm.reset(); // Also reset profile fields
+            }
+        });
+    </script>
+
+</body>
+</html>

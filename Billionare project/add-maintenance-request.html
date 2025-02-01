@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Maintenance Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+        }
+        #chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            max-height: 200px; /* Limit height of chat area */
+            overflow-y: auto; /* Scrollable if content overflows */
+        }
+        .message {
+            margin-bottom: 10px; /* Space between messages */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add Maintenance Request</h1>
+        <nav>
+            <button onclick="window.location.href='index.html'">Back to Home Page</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Submit a New Maintenance Request</h2>
+        <form id="maintenance-request-form">
+            <label for="property-id">Property ID:</label>
+            <input type="text" id="property-id" name="property-id" required>
+
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="routine">Routine</option>
+                <option value="urgent">Urgent</option>
+                <option value="emergency">Emergency</option>
+            </select>
+
+            <!-- Chat container for description -->
+            <div id="chat-container"></div>
+
+            <!-- Input for chat messages -->
+            <input type="text" id="chat-input" placeholder="Type your message here..." />
+            <button type="button" id="send-chat">Send</button>
+
+            <!-- Submit button -->
+            <button type="submit">Submit Request</button>
+        </form>
+
+        <button onclick="window.location.href='maintenance.html'">Back to Maintenance Requests</button>
+    </main>
+
+    <footer>
+    <p>&copy; 2024 Property Management App. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        document.getElementById('maintenance-request-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const propertyId = document.getElementById('property-id').value;
+            const priority = document.getElementById('priority').value;
+
+            // Get last user message from chat input before submitting
+            const lastMessage = document.getElementById('chat-input').value.trim();
+
+            // Redirecting to Chat Response page with user's last message as URL parameter
+            window.location.href = chat-response.html?message:$;{encodeURIComponent(lastMessage)}propertyId=$;{encodeURIComponent(propertyId)}priority=$;{encodeURIComponent(priority)};
+        });
+
+        // Handle sending chat messages
+        document.getElementById('send-chat').addEventListener('click', function() {
+            const chatInput = document.getElementById('chat-input');
+            const messageText = chatInput.value.trim();
+
+            if (messageText)
+            {
+                const chatContainer = document.getElementById('chat-container');
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.textContent = messageText;
+
+
+                chatContainer.appendChild(messageDiv);
+                chatInput.value = ''; // Clear input after sending
+                chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Property Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 900;
+            padding: 0;
+            background-color: #04117e;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #6f00ff;
+            color: white;
+        }
+        .button {
+            background-color: #180d06;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s; /* Animation effect */
+            margin: 5px; /* Space between buttons */
+        }
+        .button:hover {
+            background-color: #f57373; /* Darker blue on hover */
+            transform: scale(1.05); /* Slightly enlarge button */
+        }
+        .action-buttons {
+            display: flex; /* Use flexbox for layout */
+            flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+            justify-content: center; /* Center the buttons */
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .greeting-message {
+          color: #09f140; /* Green for greeting */
+          font-size: 24px; /* Larger font size for visibility */
+          margin-top: 20px; /* Space above greeting */
+          display:inline-block; /* To align with pointer */
+          position: relative; /* For positioning the pointer */
+          visibility:hidden; /* Initially hidden for animation */
+        }
+        .pointer {
+          color:#e60a20; /* Red for pointer */
+          position:absolute; /* Positioning relative to greeting message */
+          left:-30px; /* Adjust as necessary */
+          top:-2px; /* Adjust as necessary */
+          font-weight:bold; /* Make pointer bold */
+          visibility:hidden; /* Initially hidden for animation */
+        }
+        .settings-instructions {
+          color: #f8c5ca; /* Red for settings instructions */
+          font-size: 18px; /* Medium font size */
+          margin-top: 20px; /* Space above instructions */
+          display:none; /* Initially hidden */
+        }
+        .notification-alert {
+          color: #f8bd0b; /* Yellow for notifications */
+          font-size: 18px; /* Medium font size */
+          margin-top: 20px; /* Space above alert */
+          display:none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome our beloved Tenant</h1>
+</header>
+
+<main>
+    <div class="welcome-message">
+        <span class="pointer" id="pointer">▶</span> <!-- Red inline pointer -->
+        <h2 class="greeting-message" id="greeting"></h2>
+
+        <p class="settings-instructions" id="settingsInstructions">
+            To customize your experience, please visit the settings page where you can update your profile and preferences.
+        </p>
+<p class="notification-alert" id="notificationAlert">No new notifications at this time!</p>
+    </div>
+
+    <div class="action-buttons">
+        <a href="rentals.html" class="button">Properties</a>
+        <a href="reports.html" class="button">Reports</a>
+        <a href="user-account.html" class="button">Account</a>
+        <a href="payments.html" class="button">Payments</a>
+        <a href="notifications.html" class="button" onclick="openModal()">Notifications</a>
+        <a href="documents.html" class="button">Documents</a>
+        <a href="user-manual.html" class="button">User Manual</a>
+        <a href="maintenance.html" class="button">Submit Maintenance Request</a>
+        <a href="payments.html" class="button">Make a Payment</a>
+        <a href="settings.html" class="button">Settings</a>
+    </div>
+
+    <!-- Modal for Notifications -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Notifications</h2>
+            <p>No new notifications at this time!</p>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2024 Property Management App. All rights reserved.</p>
+</footer>
+
+<script>
+let isAnimating = false; // Flag to track if a message is currently being animated
+
+// Function to set and animate the greeting message
+function setGreeting() {
+    const greetingElement = document.getElementById('greeting');
+    const pointerElement = document.getElementById('pointer');
+
+    const messages = [
+        "Hello Beloved Tenants! Remember to pay your rent on time!",
+        "Welcome! We are here for you! Don't forget to check our maintenance services.",
+        "If you have any problem visit the Q & A section! Landlords are here to assist you.",
+        "Dear Tenants, please report any issues promptly for quick resolution.",
+        "We offer a range of services including online payments and maintenance requests!",
+        "Stay informed about community events and updates through our notifications."
+    ];
+
+    let index = 0; // Start with the first message
+
+    // Start displaying messages immediately
+    animateText(messages[index], greetingElement, pointerElement);
+
+    // Infinite loop of messages
+    setInterval(() => {
+        if (!isAnimating) { // Only show next message if not currently animating
+            index = (index + 1) % messages.length; // Loop through messages
+            animateText(messages[index], greetingElement, pointerElement);
+        }
+    }, 13000); // Delay for showing the next message (10 seconds display + 3 seconds delete)
+}
+
+// Function to animate text appearing one character at a time
+function animateText(text, element, pointer) {
+    let currentText = '';
+    let i = 0;
+
+    isAnimating = true; // Set flag to indicate animation has started
+
+    // Show elements initially
+    element.style.visibility = 'visible';
+    pointer.style.visibility = 'visible';
+
+    const interval = setInterval(() => {
+        if (i < text.length) {
+            currentText += text.charAt(i);
+            element.textContent = currentText;
+            i++;
+        } else {
+            clearInterval(interval);
+
+            // Wait before starting to delete characters
+            setTimeout(() => deleteText(element, currentText, pointer), 10000); // Wait for ten seconds before deleting
+        }
+    }, 30); // Change character every thirty milliseconds
+}
+
+// Function to delete text character by character
+function deleteText(element, currentText, pointer) {
+    let i = currentText.length - 1;
+
+    const interval = setInterval(() => {
+        if (i >= 0) {
+            currentText = currentText.slice(0, i);
+            element.textContent = currentText;
+            i--;
+        } else {
+            clearInterval(interval);
+
+            // Hide elements after deletion
+            element.style.visibility = 'hidden';
+            pointer.style.visibility = 'hidden';
+            isAnimating = false; // Reset flag after deletion is complete
+
+            // Show settings instructions after greeting disappears
+            document.getElementById('settingsInstructions').style.display = 'block';
+
+            // Show notification alert after a delay
+            setTimeout(() => showNotificationAlert(), 3000);
+        }
+    }, (3000 / currentText.length)); // Delete all characters in total of three seconds
+}
+
+// Function to show notification alert
+function showNotificationAlert() {
+    const notificationElement = document.getElementById('notificationAlert');
+    notificationElement.style.display = 'block';
+}
+
+// Initialize greeting on page load
+window.onload = setGreeting;
+
+</script>
+
+</body>
+</html>

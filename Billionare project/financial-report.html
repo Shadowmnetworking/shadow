@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF; /* Blue background */
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF; /* Blue header */
+            color: white;
+        }
+
+        .payment-form {
+            margin-top: 20px;
+        }
+
+        .payment-form input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .payment-form button {
+            padding: 10px 15px;
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .payment-form button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Financial Report</h1>
+</header>
+
+<section class="financial-report">
+    <h2>Payment History</h2>
+    <table id="paymentTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="paymentBody">
+            <!-- Payment records will be added here -->
+        </tbody>
+    </table>
+
+    <div class="payment-form">
+        <h3>Add New Payment</h3>
+        <input type="date" id="paymentDate" required>
+        <input type="number" id="paymentAmount" placeholder="Amount" required>
+        <select id="paymentMethod">
+            <option value="Credit Card">Credit Card</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+        <button onclick="addPayment()">Add Payment</button>
+        <button onclick="window.location.href='start.html'">Back to Home Page</button>
+    </div>
+</section>
+
+<script>
+    function addPayment() {
+        // Get values from input fields
+        const date = document.getElementById('paymentDate').value;
+        const amount = document.getElementById('paymentAmount').value;
+        const method = document.getElementById('paymentMethod').value;
+
+        // Validate inputs
+        if (!date || !amount) {
+            alert("Please fill out all fields.");
+            return;
+        }
+
+        // Create a new row for the payment
+        const tableBody = document.getElementById('paymentBody');
+        const newRow = tableBody.insertRow();
+
+        // Insert cells and set their values
+        const dateCell = newRow.insertCell(0);
+        const amountCell = newRow.insertCell(1);
+        const methodCell = newRow.insertCell(2);
+        const statusCell = newRow.insertCell(3);
+
+        dateCell.textContent = date;
+        amountCell.textContent = $${parseFloat(amount).toFixed(2)};
+        methodCell.textContent = method;
+
+        // Set status based on payment method (for demonstration purposes)
+        statusCell.textContent = "Completed";
+
+        // Clear input fields
+        document.getElementById('paymentDate').value = '';
+        document.getElementById('paymentAmount').value = '';
+    }
+</script>
+
+</body>
+</html>

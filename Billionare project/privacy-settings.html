@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Settings - Rent Payment App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #007BFF; /* Blue background */
+            color: white; 
+            border: none; 
+            padding: .5em; 
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        footer {
+            text-align: center; 
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Privacy Settings</h1>
+
+    <form id="privacy-settings-form">
+        <label>
+            <input type="checkbox" id="show-email" name="show-email" checked>
+            Show Email Address
+        </label>
+        
+        <label>
+            <input type="checkbox" id="show-phone" name="show-phone" checked>
+            Show Phone Number
+        </label>
+
+        <label>
+            <input type="checkbox" id="show-alt-phone" name="show-alt-phone">
+            Show Alternative Phone Number
+        </label>
+
+        <!-- Additional privacy settings can be added here -->
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Back button to return to the profile page -->
+    <button onclick="window.location.href='user-account.html'">Back to Profile</button>
+    <button onclick="window.location.href='start.html'">Back to Home Page</button>
+</div>
+
+<footer>&copy; 2024 Property Management App. All rights reserved.</footer>
+
+<script>
+    // Optional JavaScript for handling form submission
+    document.getElementById('privacy-settings-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Here you would typically send the updated privacy settings to the server
+        const showEmail = document.getElementById('show-email').checked;
+        const showPhone = document.getElementById('show-phone').checked;
+        const showAltPhone = document.getElementById('show-alt-phone').checked;
+
+        // Simulate saving settings
+        alert(Privacy, Settings, Updated!\nShow Email: ${showEmail}\nShow Phone: ${showPhone}\nShow Alternative Phone: ${showAltPhone});
+
+        // Reset form if needed
+        this.reset();
+    });
+</script>
+
+</body>
+</html>

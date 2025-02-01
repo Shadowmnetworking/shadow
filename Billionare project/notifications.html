@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF; /* Blue background */
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        section {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .notification {
+            border-bottom: 1px solid #eaeaea;
+            padding: 10px 0;
+        }
+
+        .notification:last-child {
+            border-bottom: none; /* Remove border for last notification */
+        }
+
+        .read {
+            color: gray; /* Style for read notifications */
+        }
+
+        button {
+            background-color:#007BFF;
+            color:white;
+            border:none;
+            padding:.5em;
+            cursor:pointer
+        }
+
+        button:hover {
+            background-color:#0056b3
+        }
+
+        footer {
+            text-align:center;
+            margin-top:.5em
+        }
+
+        h2 {
+            margin-bottom:.5em
+        }
+
+        p {
+            margin-bottom:.5em
+        }
+
+        .notification-container {
+            max-width :600px ;
+            margin:auto ;
+            padding :20px ;
+            border-radius :8px ;
+            box-shadow :0 2px 5px rgba(0,0,0,0.1) ;
+        }
+
+        .notification-header {
+            text-align:center ;
+            padding :10px ;
+            background-color :#007BFF ; /* Blue header */
+            color:white ;
+        }
+
+        .notification-body {
+            padding :10px ;
+
+        }
+
+        .notification-footer {
+            text-align:center ;
+
+        }
+
+        .notification-footer button {
+
+            margin-top :10px ;
+
+        }
+
+        .notification-footer button:hover {
+
+            background-color :#0056b3 ;
+
+        }
+
+    </style >
+</head>
+
+<body>
+
+<header>
+<h1>User Notifications</h1>
+</header>
+
+<section class="notification-container">
+    <div class="notification-header">
+        <h2>Your Notifications</h2>
+    </div>
+
+    <div class="notification-body" id="notifications">
+        <!-- Placeholder for notifications -->
+    </div>
+
+    <div class="notification-footer">
+        <button onclick="markAllAsRead()">Mark All as Read</button> <!-- Button to mark all as read -->
+        <button onclick="clearNotifications()">Clear Notifications</button> <!-- Button to clear notifications -->
+        <button onclick="window.location.href='start.html'">Back to Home Page</button>
+    </div>
+</section>
+
+<script>
+// Function to display notifications
+function displayNotifications() {
+    const notificationContainer = document.getElementById('notifications');
+    notificationContainer.innerHTML = ''; // Clear previous notifications
+
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    notifications.forEach(notification => {
+        const notificationDiv = document.createElement('div');
+        notificationDiv.className = 'notification';
+
+        const message = document.createElement('p');
+        message.textContent = notification.message;
+
+        if (notification.read) {
+            message.classList.add('read'); // Add class if read
+            message.textContent += " (Read)";
+        }
+
+        notificationDiv.appendChild(message);
+
+        notificationContainer.appendChild(notificationDiv);
+    });
+}
+// Function to mark all notifications as read
+function markAllAsRead() {
+    let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    notifications.forEach(notification => notification.read = true);
+
+    localStorage.setItem('notifications', JSON.stringify(notifications)); // Update storage
+    displayNotifications(); // Refresh the displayed notifications
+}
+
+// Function to clear all notifications
+function clearNotifications() {
+    const confirmation = confirm("Are you sure you want to clear all notifications?");
+
+    if (confirmation) {
+        localStorage.removeItem('notifications'); // Clear storage
+        displayNotifications(); // Refresh the displayed notifications
+    }
+}
+
+// Initial call to display notifications on page load
+window.onload = displayNotifications;
+
+</script>
+
+</body>
+
+</html>

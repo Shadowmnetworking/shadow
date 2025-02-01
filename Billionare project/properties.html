@@ -1,0 +1,120 @@
+<!DOCTYPE html >
+<html lang = "en" >
+<head >
+<meta charset = "UTF-8" >
+<meta name = "viewport" content = "width=device-width, initial-scale=1.0" >
+<title >View Property - Rent Payment App </title >
+<style >
+    body
+    {
+        font-family : Arial , sans-serif ;
+        margin : 0 ;
+        padding : 0 ;
+    }
+    .container
+    {
+        max-width : 800px ;
+        margin : auto ;
+        padding : 20px ;
+    }
+    h1
+    {
+        text-align : center ;
+    }
+    label
+    {
+        display : block ;
+        margin-top : 10px ;
+    }
+    input[type=text], input[type=number], input[type=file]
+    {
+        width : 100% ;
+        padding : .5em ;
+        margin-top : 5px ;
+    }
+    button
+    {
+    background-color : #007BFF ; /* Blue background */
+        color : white ;
+        border : none ;
+        padding : .5em ;
+        cursor : pointer;
+        margin-top : 20px;
+    }
+    button:hover
+    {
+    background-color : #0056b3 ; /* Darker blue on hover */
+    }
+    footer
+    {
+        text-align : center;
+        margin-top : 20px;
+    }
+</style >
+</head >
+<button onclick="window.location.href='index.html'">Back to Home Page</button>
+<body >
+
+<div class="container">
+    <h1>Veiw Property</h1>
+
+    <!-- Form for adding a new property -->
+    <form id="add-property-form">
+        <label for="property-name">Property Name:</label>
+
+        <label for="location">Location:</label>
+
+        <label for="status">Status:</label>
+        <label id="status" name="status">
+            <option value="available">Available</option>
+            <option value="rented">Rented</option>
+            <option value="maintenance">Under Maintenance</option>
+        </lable>
+
+    </form>
+    </div>
+    <footer>&copy; 2024 Property Management App. All rights reserved.</footer>
+
+    <!-- JavaScript Section -->
+    <script>
+// Simulating user role (for demonstration purposes)
+const isAdmin = true; // Change this to false to simulate a basic user
+
+// Initialize UI based on user role
+function initializeUI() {
+    if (!isAdmin) {
+    alert("You do not have permission to access this page.");
+       window.location.href = 'properties.html'; // Redirect non-admins
+    }
+}
+
+// Call initializeUI on page load
+window.onload = initializeUI;
+
+document.getElementById('add-property-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form values
+    const propertyName = document.getElementById('property-name').value;
+    const location = document.getElementById('location').value;
+    const status = document.getElementById('status').value;
+
+    // Get the uploaded files
+    const files = document.getElementById('property-images').files;
+
+    // Simulate adding the property (in a real application, you would send this data to a server)
+    let imageNames = [];
+    for (let i = 0; i < files.length; i++) {
+       imageNames.push(files[i].name); // Collect uploaded image names
+    }
+
+    alert(Property Added!\nName: ${propertyName}\nLocation: ${location}\nStatus: ${status}\nImages: ${imageNames.join(', ')});
+
+    // Reset the form
+    this.reset();
+});
+    </script>
+
+    </body >
+
+</html >

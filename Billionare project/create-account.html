@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body
+        {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1
+        {
+            text-align:center;
+            color:#007BFF;
+        }
+
+        form
+        {
+            max-width:400px;
+            margin:auto;
+            background:white;
+            padding:20px;
+            border-radius:8px; /* Rounded corners */
+            box-shadow:0 2px 5px rgba(0,0,0,0.3); /* Shadow effect */
+        }
+
+        label
+        {
+            display:block;
+            margin-bottom:.5em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"]
+        {
+            width:100%;
+            padding:.5em;
+            margin-bottom:.5em;
+            border-radius:.25em;
+            border:.1em solid #ccc;
+
+        }
+
+        button
+        {
+            width:auto;
+            padding:.7em 1.5em; /* Increased button size */
+            border:none;
+            border-radius:.25em;
+            background-color:#007BFF;
+            color:white;
+            cursor:pointer;
+
+        }
+
+        button:hover
+        {
+            background-color:#0056b3; /* Darker blue on hover */
+        }
+
+
+    </style>
+    </head>
+    <body>
+
+        <h1>Create Your Account</h1>
+
+        <form id="createAccountForm">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+
+        <!-- Add more fields as needed -->
+
+        <button type="submit">Create Account</button>
+        <button type="button" onclick="window.location.href='index.html'">Not Now</button>
+        </form>
+
+        <script>
+            // Handle form submission to store user data (mock implementation)
+            document.getElementById('createAccountForm').onsubmit = function(event)
+            {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Here you would typically send this data to your server.
+                console.log("Account created:", { username, email, password });
+                alert("Account created successfully! You can now log in.");
+            }
+        </script>
+
+        <a href="signin.html">Already have an account? Log in here.</a>
+
+    </body>
+</html>

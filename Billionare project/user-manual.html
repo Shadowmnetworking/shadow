@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Manual</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: azure;
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1fr 3fr; /* Sidebar and content area */
+            gap: 20px;
+            padding: 20px;
+        }
+        .sidebar {
+            background-color: #f0f8ff; /* Light background for sidebar */
+            padding: 15px;
+            border-radius: 5px; /* Rounded corners */
+        }
+        .sidebar h3 {
+            margin-top: 0; /* Remove top margin */
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+        }
+        .message-container {
+            position: relative;
+            height: 100px; /* Set a fixed height for the message display */
+            overflow: hidden; /* Hide overflow */
+            margin-bottom: 20px; /* Space below the message container */
+        }
+        .message {
+            position: absolute;
+            width: 100%;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Smooth transition for sliding effect */
+            opacity: 0; /* Start hidden */
+        }
+        .active {
+            opacity: 1; /* Show active message */
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        .collapsible {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px; /* Rounded corners */
+            border: none; /* No border */
+            text-align: left; /* Align text to left */
+            outline:none; /* No outline on focus */
+        }
+        .active, .collapsible:hover {
+          background-color:#ccc; /* Change background on hover or active state */
+        }
+        .content {
+            padding-left: 18px;
+            display:none;
+            overflow:hidden;
+            background-color:#f9f9f9;
+            border-radius:.5em;
+            margin-bottom:.5em;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Manual</h1>
+        <nav>
+            <ul>
+                <li><a href="start.html">Home</a></li>
+        </nav>
+    </header>
+<main>
+        <div class="sidebar">
+            <h3>Table of Contents</h3>
+            <button class="collapsible">Getting Started</button>
+            <div class="content">
+                <p>To begin using the application, please create an account by providing your details. Once registered, you can log in and access all features.</p>
+            </div>
+
+            <button class="collapsible">Account Management</button>
+            <div class="content">
+                <p>Manage your account settings by navigating to the Account page. Here, you can update your username, email address, and password as needed.</p>
+            </div>
+
+            <button class="collapsible">Payment Processing</button>
+            <div class="content">
+                <p>For payment processing, ensure that your payment details are up-to-date in the Account settings. You can view past transactions and set up recurring payments.</p>
+            </div>
+
+            <button class="collapsible">Notifications</button>
+            <div class="content">
+                <p>For notifications, go to the notification page where you can customize how you receive updates about your properties via email or SMS.</p>
+            </div>
+
+            <button class="collapsible">Document Management</button>
+            <div class="content">
+                <p>Manage your documents by visiting the document management page. Upload important files related to your properties and keep them organized for easy access.</p>
+            </div>
+
+            <button class="collapsible">FAQ</button>
+            <div class="content">
+                <p>If you have any questions, check the FAQ section for common inquiries and solutions.</p>
+            </div>
+
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="message-container" id="messageContainer">
+            <!-- Messages will be displayed here -->
+            <div class="message active" id="message1">Welcome to the Property Management Application! Here you can manage your properties efficiently.</div>
+            <div class="message" id="message2" style="transform: translateY(100%);">To begin using the application, please create an account by clicking on 'Sign Up' on the home page.</div>
+            <div class="message" id="message3" style="transform: translateY(100%);">Manage your account settings by navigating to the Account page, where you can update your profile and preferences.</div>
+            <div class="message" id="message4" style="transform: translateY(100%);">For notifications, go to the notification page to customize how you receive updates about your properties.</div>
+            <div class="message" id="message5" style="transform: translateY(100%);">Manage your documents by visiting the document management page, where you can upload and organize important files.</div>
+            <div class="message" id="message6" style="transform: translateY(100%);">If you have any questions, check the FAQ section for common inquiries and solutions.</div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Property Management App. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        let currentMessageIndex = 0;
+
+        function showNextMessage() {
+            const messages = document.querySelectorAll('.message');
+
+            // Hide current message
+            messages[currentMessageIndex].style.transform = 'translateY(-100%)';
+            messages[currentMessageIndex].classList.remove('active');
+
+            // Update index
+            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+
+            // Show next message
+            messages[currentMessageIndex].style.transform = 'translateY(0)';
+            messages[currentMessageIndex].classList.add('active');
+
+            // Reset position of other messages
+            for (let i = 0; i < messages.length; i++) {
+                if (i !== currentMessageIndex) {
+                    messages[i].style.transform = 'translateY(100%)';
+                }
+            }
+        }
+// Start displaying messages every 15 seconds
+        setInterval(showNextMessage, 15000);
+
+        // Collapsible sections functionality
+        const collapsibles = document.getElementsByClassName("collapsible");
+        for (let i = 0; i < collapsibles.length; i++) {
+            collapsibles[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>

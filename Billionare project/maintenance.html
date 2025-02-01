@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Maintenance Requests</title>
+   <style>
+      body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Light background for better readability */
+      }
+      header {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            text-align: center; /* Center the header text */
+      }
+      nav ul {
+            list-style-type: none;
+            padding: 0;
+      }
+      nav ul li {
+            display: inline;
+            margin-right: 15px;
+      }
+      nav ul li a {
+            color: white;
+            text-decoration: none;
+      }
+      main {
+            padding: 20px;
+      }
+      table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Space below the table */
+      }
+      table, th, td {
+            border: 1px solid black;
+      }
+      th, td {
+            padding: 10px;
+            text-align: left;
+      }
+      th {
+            background-color: #007BFF; /* Header background color */
+            color: white; /* Header text color */
+      }
+      footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF; /* Footer background color */
+            color: white; /* Footer text color */
+      }
+      button {
+            margin-right: 10px; /* Space between buttons */
+            padding: 10px 15px; /* Button padding */
+            border-radius: 5px; /* Rounded corners for buttons */
+            border: none; /* No border */
+            background-color: #007BFF; /* Button background color */
+            color: white; /* Button text color */
+            cursor: pointer; /* Pointer cursor on hover */
+      }
+      button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+      }
+
+      @media (max-width: 600px) {
+          table {
+              font-size: 14px; /* Smaller font size for mobile devices */
+          }
+          button {
+              width: 100%; /* Full width buttons on small screens */
+              margin-bottom: 10px; /* Space between buttons */
+          }
+      }
+   </style>
+</head>
+
+<body>
+   <header>
+      <h1>Maintenance Requests</h1>
+   </header>
+
+   <main>
+      <h2>Maintenance Requests List</h2>
+
+      <table id="maintenance-table">
+         <thead>
+               <tr>
+                  <th>Request ID</th>
+                  <th>Property ID</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+               </tr>
+         </thead>
+
+         <tbody id="maintenance-requests">
+               <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>Leaky faucet in kitchen.</td>
+                  <td>Pending</td>
+                  <td><button onclick="viewDetails(1)">View Details</button></td>
+               </tr>
+
+               <!-- More maintenance requests can be added here -->
+               <!-- Example of an empty state -->
+               <!-- Uncomment below if no requests -->
+               <!--
+               <tr><td colspan='5'>No maintenance requests found.</td></tr>
+               -->
+         </tbody>
+      </table>
+
+      <button onclick="window.location.href='add-maintenance-request.html'">Add Maintenance Request</button>
+      <button onclick="window.location.href='start.html'">Back to Home Page</button>
+
+   </main>
+
+   <footer>
+      <p>&copy; 2024 Property Management App. All rights reserved.</p>
+   </footer>
+
+   <!-- JavaScript Section -->
+   <script>
+      function viewDetails(requestId) {
+         // Simulate fetching details for the request
+         const details = {
+               1: "Request ID 1 - Leaky faucet in kitchen. Reported on 2024-11-29. Assigned to John Doe.",
+               // Additional requests can be added here
+         };
+// Alert the details of the selected request
+         if (details[requestId]) {
+             alert(details[requestId]);
+         } else {
+             alert("No details available for this request.");
+         }
+     }
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        }
+
+        label {
+            display: block;
+            margin-bottom: .5em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: .5em;
+            margin-bottom: .5em;
+            border-radius: .25em;
+            border: .1em solid #ccc;
+        }
+
+        button {
+            width: auto;
+            padding: .7em 1.5em; /* Increased button size */
+            border: none;
+            border-radius: .25em;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        #countdown {
+            text-align: center;
+            font-size: 1.2em;
+            color: red; /* Countdown color */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Login to Your Account</h1>
+
+    <div id="countdown"></div> <!-- Countdown display -->
+
+    <form id="loginForm">
+        <label for="usernameOrEmail">Username or Email:</label><br>
+        <input type="text" id="usernameOrEmail" name="usernameOrEmail" required><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">Log In</button>
+    </form>
+
+    <p><a href="#" onclick='alert("An OTP has been sent to your registered email address.");'>Forgot Password?</a></p>
+    <p><a href="#" onclick='alert("An email has been sent with your username.");'>Forgot Username?</a></p>
+
+    <script>
+        let countdownInterval;
+
+        document.getElementById('loginForm').onsubmit = async function(event) {
+            event.preventDefault();
+
+            const usernameOrEmail = document.getElementById('usernameOrEmail').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    usernameOrEmail,
+                    password,
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message);
+                window.location.href = 'user-manual.html'; // Redirect to user-manual.html
+                return; // Exit function after successful login
+            } else {
+                alert(result.error);
+                if (response.status === 403) {
+                    startCountdown();
+                }
+            }
+        };
+
+        /*function startCountdown() {
+            let endTime = Date.now() + (180 * 1000); // Lock duration in milliseconds (3 minutes)
+
+            countdownInterval = setInterval(function() {
+                let now = Date.now();
+                let timeLeft = endTime - now;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown').innerHTML = ""; // Clear countdown display
+                    alert("Your account is now unlocked. You can try logging in again.");
+                    return;
+                }
+                // Calculate minutes and seconds left
+                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Display countdown
+                document.getElementById('countdown').innerHTML = Account locked! Try again in ${minutes}m ${seconds}s;
+
+            }, 1000);
+
+             // Disable form inputs during countdown
+            disableLoginForm(true);
+
+            setTimeout(() => {
+                disableLoginForm(false);
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = ""; // Clear countdown display
+                alert("Your account is now unlocked. You can try logging in again.");
+
+                // Reset failed attempts on server side (optional)
+                fetch('/reset_failed_attempts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ usernameOrEmail })
+                });
+
+            }, lockDuration);
+        }
+
+        function disableLoginForm(disable) {
+            document.getElementById('usernameOrEmail').disabled = disable;
+            document.getElementById('password').disabled = disable;
+        }*/
+    </script>
+
+    <a href="create-account.html">Don't have an account? Create one here.</a>
+
+</body>
+</html>

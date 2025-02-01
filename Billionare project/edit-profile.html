@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Rent Payment App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2252f1; /* Light gray background */
+            color: #f7f3f3; /* Dark text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"], input[type="email"], input[type="file"] {
+            width: 100%;
+            padding: .5em;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #09ff00; /* Blue background */
+            color: black;
+            border: none;
+            padding: .5em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #eb2006; /* Darker blue on hover */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-pic-preview {
+            display: block;
+            margin: 20px auto;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover; /* Ensures the image covers the entire area */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Edit Your Profile</h1>
+
+    <!-- Form for editing profile -->
+    <form id="edit-profile-form">
+        <label for="profile-pic">Profile Picture:</label>
+        <input type="file" id="profile-pic" name="profile-pic" accept="image/*" onchange="previewImage(event)">
+
+        <!-- Preview of the profile picture -->
+        <img id="profile-pic-preview" class="profile-pic-preview" src="default-profile-pic.jpg" alt="Profile Picture Preview">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <!-- Additional fields can be added here -->
+
+        <!-- Submit button -->
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Back button to return to the profile page -->
+    <button onclick="window.location.href='user-account.html'">Back to Profile</button>
+
+    <!-- Optional JavaScript can be added here if needed -->
+</div>
+
+<footer>&copy; 2024 Property Management App. All rights reserved.</footer>
+
+<script>
+    // Function to preview the selected image
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imgPreview = document.getElementById('profile-pic-preview');
+            imgPreview.src = e.target.result; // Set the source of the image preview
+        };
+
+        if (file) {
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    }
+
+    // Optional form submission handling
+    document.getElementById('edit-profile-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Here you would typically handle form submission, e.g., send data to the server
+        alert("Profile updated successfully!");
+
+        // Reset the form if needed
+        this.reset();
+
+        // Reset the image preview to default
+        document.getElementById('profile-pic-preview').src = 'default-profile-pic.jpg';
+    });
+</script>
+
+</body>
+</html>

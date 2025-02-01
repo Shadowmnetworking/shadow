@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Occupancy Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF; /* Blue background */
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF; /* Blue header */
+            color: white;
+        }
+
+        .tenant-form {
+            margin-top: 20px;
+        }
+
+        .tenant-form input, .tenant-form select {
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .tenant-form button {
+            padding: 10px 15px;
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tenant-form button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Occupancy Report</h1>
+</header>
+
+<nav><button onclick="window.location.href='start.html'" class="button">Back to Home Page</button></nav>
+
+<section class="occupancy-report">
+    <h2>Current Occupancy Status</h2>
+    <table id="occupancyTable">
+        <thead>
+            <tr>
+                <th>Apartment Number</th>
+                <th>Tenant Name</th>
+                <th>Move-in Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="occupancyBody">
+            <!-- Occupancy records will be added here -->
+        </tbody>
+    </table>
+    
+    <div class="tenant-form"></div>
+</section>
+
+<script>
+    function addTenant() {
+        // Get values from input fields
+        const apartmentNumber = document.getElementById('apartmentNumber').value;
+        const tenantName = document.getElementById('tenantName').value;
+        const moveInDate = document.getElementById('moveInDate').value;
+
+        // Validate inputs
+        if (!apartmentNumber  !tenantName  !moveInDate) {
+            alert("Please fill out all fields.");
+            return;
+        }
+
+        // Create a new row for the tenant
+        const tableBody = document.getElementById('occupancyBody');
+        const newRow = tableBody.insertRow();
+
+        // Insert cells and set their values
+        const apartmentCell = newRow.insertCell(0);
+        const tenantCell = newRow.insertCell(1);
+        const dateCell = newRow.insertCell(2);
+        const statusCell = newRow.insertCell(3);
+
+        apartmentCell.textContent = apartmentNumber;
+        tenantCell.textContent = tenantName;
+        dateCell.textContent = moveInDate;
+
+        // Set status based on occupancy
+        statusCell.textContent = "Occupied";
+
+        // Clear input fields
+        document.getElementById('apartmentNumber').value = '';
+        document.getElementById('tenantName').value = '';
+        document.getElementById('moveInDate').value = '';
+    }
+</script>
+
+</body>
+</html>
